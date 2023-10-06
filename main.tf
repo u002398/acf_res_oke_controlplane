@@ -1,6 +1,6 @@
 resource "oci_containerengine_cluster" "this" {
   name               = var.cluster_name
-  compartment_id     = var.cluster_compartment_ocid
+  compartment_id     = var.compartment_ocid
   vcn_id             = var.cluster_vcn_ocid
   kubernetes_version = "v1.27.2"
 

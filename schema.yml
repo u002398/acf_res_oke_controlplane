@@ -5,7 +5,7 @@ groupings:
     variables:
     - region
     - compartment_ocid
-    - cluster_compartment_ocid
+    - networking_compartment_ocid
     - cluster_vcn_ocid
     - cluster_subnet_ocid
     - loadbalancer_subnet_ocid
@@ -18,14 +18,14 @@ variables:
     description: The OCI region where resources will be created
     required: true
 
-  compartment_ocid:
+  networking_compartment_ocid:
     type: oci:identity:compartment:id
     title: Networking compartment
     description: The target compartment id where all networks are located
     required: false
     default: "ocid1.compartment.oc1..aaaaaaaaidrdrsnblt5fa5u2db6v765wfq5wqj3um3czedgaig4sbh2yf4hq"
 
-  cluster_compartment_ocid:
+  compartment_ocid:
     type: oci:identity:compartment:id
     title: OKE control plane compartment
     description: The target compartment id where to place the control plane
@@ -37,7 +37,7 @@ variables:
     description: The target vcn id where to place the control plane components, e.g. Kubernetes API
     required: true
     dependsOn:
-      compartmentId: ${compartment_ocid}
+      compartmentId: ${networking_compartment_ocid}
 
   cluster_subnet_ocid:
     type: oci:core:subnet:id
@@ -45,7 +45,7 @@ variables:
     description: The target subnet id where to place the control plane components, e.g. Kubernetes API
     required: true
     dependsOn:
-      compartmentId: ${compartment_ocid}
+      compartmentId: ${networking_compartment_ocid}
       vcnId: ${cluster_vcn_ocid}
 
   loadbalancer_subnet_ocid:
@@ -54,7 +54,7 @@ variables:
     description: The target subnet id where to the load balancer (Kubernetes services) are placed 
     required: true
     dependsOn:
-      compartmentId: ${compartment_ocid}
+      compartmentId: ${networking_compartment_ocid}
       vcnId: ${cluster_vcn_ocid}
  
   cluster_name:
