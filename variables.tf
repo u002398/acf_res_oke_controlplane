@@ -3,9 +3,9 @@ variable "region" {
   description = "OCI Region"
 }
 
-variable "compartment_ocid" {
+variable "cluster_compartment_ocid" {
   type        = string
-  description = "Compartment OCID"
+  description = "Compartment OCID where the control plane is placed"
 }
 
 variable "cluster_vcn_ocid" {

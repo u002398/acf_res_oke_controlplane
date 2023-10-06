@@ -5,6 +5,7 @@ groupings:
     variables:
     - region
     - compartment_ocid
+    - cluster_compartment_ocid
     - cluster_vcn_ocid
     - cluster_subnet_ocid
     - loadbalancer_subnet_ocid
@@ -18,6 +19,13 @@ variables:
     required: true
 
   compartment_ocid:
+    type: oci:identity:compartment:id
+    title: Networking compartment
+    description: The target compartment id where all networks are located
+    required: false
+    default: "ocid1.compartment.oc1..aaaaaaaaidrdrsnblt5fa5u2db6v765wfq5wqj3um3czedgaig4sbh2yf4hq"
+
+  cluster_compartment_ocid:
     type: oci:identity:compartment:id
     title: OKE control plane compartment
     description: The target compartment id where to place the control plane
