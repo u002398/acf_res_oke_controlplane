@@ -1,0 +1,57 @@
+schemaVersion: 1.1.0
+locale: "en"
+groupings:
+  - title: "Deploy OKE control plane"
+    variables:
+    - region
+    - compartment_ocid
+    - cluster_vcn_ocid
+    - cluster_subnet_ocid
+    - loadbalancer_subnet_ocid
+    - cluster_name
+
+variables:
+  region:
+    type: oci:identity:region:name
+    title: Region
+    description: The OCI region where resources will be created
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: OKE control plane compartment
+    description: The target compartment id where to place the control plane
+    required: true
+
+  cluster_vcn_ocid:
+    type: oci:core:vcn:id
+    title: OKE control plane VCN
+    description: The target vcn id where to place the control plane components, e.g. Kubernetes API
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  cluster_subnet_ocid:
+    type: oci:core:subnet:id
+    title: OKE control plane Subnet ID
+    description: The target subnet id where to place the control plane components, e.g. Kubernetes API
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+      vcnId: ${cluster_vcn_ocid}
+
+  loadbalancer_subnet_ocid:
+    type: oci:core:subnet:id
+    title: OKE load balancer services Subnet ID
+    description: The target subnet id where to the load balancer (Kubernetes services) are placed 
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+      vcnId: ${cluster_vcn_ocid}
+ 
+  cluster_name:
+    type: string
+    title: Cluster name
+    description: The name of the OKE cluster
+    required: true
+
